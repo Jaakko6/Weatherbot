@@ -1,3 +1,3 @@
 bot_token = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
-bot_user_name = "Sateenvarjobot"
-URL = "https://damp-temple-23492.herokuapp.com"
+bot_user_name = "damp-temple-23492"
+URL = "https://damp-temple-23492.herokuapp.com/"
