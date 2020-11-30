@@ -17,7 +17,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-TOKEN = os.environ ['1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU']
+TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
 PORT = int(os.environ.get("PORT", 8443))
 
 def start(bot, update):
