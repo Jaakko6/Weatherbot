@@ -24,11 +24,11 @@ def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
 
-def error(update, error, context):
+def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def weather(update, args):
+def weather(bot, update, args):
     """Define weather at certain location"""
     owm = pyowm.OWM('dd5185db8471b85647e7626571b85db8')
     text_location = "".join(str(x) for x in args)
