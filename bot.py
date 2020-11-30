@@ -28,7 +28,7 @@ def error(update, error, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def weather(update, args):
+def weather(update, args, context):
     """Define weather at certain location"""
     owm = pyowm.OWM('dd5185db8471b85647e7626571b85db8')
     text_location = "".join(str(x) for x in args)
