@@ -18,7 +18,7 @@ PORT = int(os.environ.get("PORT", 8443))
 
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hei, minkä kaupungin sään haluat tietää?')
+    update.message.reply_text('Kirjoita: "/" ja kaupungin nimi.?')
 
 def help(update, context):
     """Send a message when the command /help is issued."""
@@ -28,7 +28,7 @@ def error(update, error, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def weather(update, args, context):
+def weather(update, context, args):
     """Define weather at certain location"""
     owm = pyowm.OWM('dd5185db8471b85647e7626571b85db8')
     text_location = "".join(str(x) for x in args)
