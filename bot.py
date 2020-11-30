@@ -74,7 +74,7 @@ def main():
                           port=PORT,
                           url_path=TOKEN)
     # updater.bot.set_webhook(url=settings.WEBHOOK_URL)
-    updater.bot.set_webhook(https://obscure-forest-19016.herokuapp.com/  + TOKEN)
+    updater.bot.set_webhook("https://obscure-forest-19016.herokuapp.com/"  + TOKEN)
     updater.idle()
 
 
