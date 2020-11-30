@@ -1,9 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-""" Telegram bot for determine current weather at certain city.
-For determine weather using OpenWeatherMap API.
-Wrapper telegram bot is python-telegram-bot (https://github.com/python-telegram-bot)
+"""
+Telegram weather bot
 """
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
@@ -20,15 +16,15 @@ logger = logging.getLogger(__name__)
 TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
 PORT = int(os.environ.get("PORT", 8443))
 
-def start(bot, update):
+def start(bot, update, context):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Hi! I can determine current weather at city.')
 
-def help(bot, update):
+def help(bot, update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Just type, for example, /weather Moscow')
 
-def error(bot, update, error):
+def error(bot, update, error, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
 
@@ -47,14 +43,16 @@ def weather(bot, update, args):
     text_temp = str(convert_temp)
     text_wind = str(convert_wind)
     text_humidity = str(convert_humidity)
-    update.message.reply_text("Temperature, celsius: {}".format(text_temp))
-    update.message.reply_text("Wind speed, m/s: {}".format(text_wind))
-    update.message.reply_text("Humidity, %: {}".format(text_humidity))
+    update.message.reply_text("Lämpötila, celsius: {}".format(text_temp))
+    update.message.reply_text("Tuulen nopeus, m/s: {}".format(text_wind))
+    update.message.reply_text("Kosteus, %: {}".format(text_humidity))
 
 def main():
     """Start the bot."""
+
+    updater = Updater(TOKEN, use_context=True)
     # Create the EventHandler and pass it your bot's token.
-    updater = Updater(TOKEN)
+    #updater = Updater(TOKEN)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -68,7 +66,6 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    #updater.start_polling()
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
