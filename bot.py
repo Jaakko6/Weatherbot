@@ -18,7 +18,7 @@ PORT = int(os.environ.get("PORT", 8443))
 
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.?')
+    update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.')
 
 def help(update, context):
     """Send a message when the command /help is issued."""
