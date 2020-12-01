@@ -16,15 +16,15 @@ logger = logging.getLogger(__name__)
 TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
 PORT = int(os.environ.get("PORT", 8443))
 
-def start(bot, update, context):
+def start(bot, update):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.')
 
-def help(bot, update, context):
+def help(bot, update):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
 
-def error(update, context):
+def error(update):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
