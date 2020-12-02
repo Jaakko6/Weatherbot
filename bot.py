@@ -1,7 +1,7 @@
 """
 Telegram weather bot
 """
-from telegram import Updater
+from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import logging
 import pyowm
