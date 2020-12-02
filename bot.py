@@ -16,11 +16,11 @@ logger = logging.getLogger(__name__)
 TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
 PORT = int(os.environ.get("PORT", 8443))
 
-def start(bot, update):
+def start(update):
     """Send a message when the command /start is issued."""
     bot.update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.')
 
-def help(bot, update):
+def help(update):
     """Send a message when the command /help is issued."""
     bot.update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
 
@@ -28,7 +28,7 @@ def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def weather(bot, update, args):
+def weather(update, args):
     """Define weather at certain location"""
     owm = pyowm.OWM('dd5185db8471b85647e7626571b85db8')
     text_location = "".join(str(x) for x in args)
@@ -43,9 +43,9 @@ def weather(bot, update, args):
     text_temp = str(convert_temp)
     text_wind = str(convert_wind)
     text_humidity = str(convert_humidity)
-    bot.update.message.reply_text("Lämpötila, celsius: {}".format(text_temp))
-    bot.update.message.reply_text("Tuulen nopeus, m/s: {}".format(text_wind))
-    bot.update.message.reply_text("Kosteus, %: {}".format(text_humidity))
+    update.message.reply_text("Lämpötila, celsius: {}".format(text_temp))
+    update.message.reply_text("Tuulen nopeus, m/s: {}".format(text_wind))
+    update.message.reply_text("Kosteus, %: {}".format(text_humidity))
 
 def main():
     """Start the bot."""
