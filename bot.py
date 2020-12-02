@@ -1,11 +1,15 @@
 """
 Telegram weather bot
 """
+from six.moves import urllib_parse
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import logging
 import pyowm
 import os
+import signal
+import configparser
+import urllib.parse
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -30,10 +34,27 @@ def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
+def getWeather(place):
+    if isinstance(place, dict):     # coordinates provided
+        lat, lon = place["latitude"], place["longitude"]
+        url = URL_OWM + "&lat=%f&lon=%f&cnt=1" % (lat, lon)
+        logger.info("Requesting weather: " + url)
+        js = makeRequest(url)
+        logger.debug(js)
+        return u"%s u'\N{DEGREE SIGN}C, %s in %s" % (getTemp(js), getDesc(js), getCity(js))
+    else:                           # place name provided 
+        # make req
+        url = URL_OWM + "&q={}".format(place)
+        logger.info("Requesting weather: " + url)
+        js = makeRequest(url)
+        logger.debug(js)
+        return u"%s \xb0C, %s paikassa %s" % (getTemp(js), getDesc(js), getCity(js))
+
+"""
 def weather(update, context, args):
     """Define weather at certain location"""
     owm = pyowm.OWM(URL_OWM)
-    text_location = "".join((str(x) for x in args))
+    text_location = "".join(*(str(x) for x in args))
     observation = owm.weather_at_place(text_location)
     w = observation.get_weather()
     humidity = w.get_humidity()
@@ -48,7 +69,7 @@ def weather(update, context, args):
     update.message.reply_text("Lämpötila, celsius: {}".format(text_temp), "Tuulen nopeus, m/s: {}".format(text_wind), "Kosteus, %: {}".format(text_humidity))
     #update.message.reply_text("Tuulen nopeus, m/s: {}".format(text_wind))
     #update.message.reply_text("Kosteus, %: {}".format(text_humidity))
-
+"""
 def main():
     """Start the bot."""
 
