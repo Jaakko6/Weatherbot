@@ -22,7 +22,7 @@ def start(update, context):
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    bot.update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
+    update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
 
 def error(update, context):
     """Log Errors caused by Updates."""
@@ -36,10 +36,10 @@ def weather(update, context, args):
     w = observation.get_weather()
     humidity = w.get_humidity()
     wind = w.get_wind()
-    temp = w.get_temperature('celsius')
-    convert_temp = temp.get('temp')
-    convert_wind = wind.get('speed')
-    convert_humidity = humidity
+    temp = w.get_temperature()
+    convert_temp = temp.get("celsius")
+    convert_wind = wind.get("speed")
+    convert_humidity = humidity.get("%")
     text_temp = str(convert_temp)
     text_wind = str(convert_wind)
     text_humidity = str(convert_humidity)
