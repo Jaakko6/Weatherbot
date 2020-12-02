@@ -1,15 +1,14 @@
 """
 Telegram weather bot
 """
-from six.moves import urllib_parse
+
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import logging
 import pyowm
 import os
 import signal
-import configparser
-import urllib.parse
+
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -39,7 +38,7 @@ def error(update, context):
 def weather(update, context, args):
     """Define weather at certain location"""
     owm = pyowm.OWM(URL_OWM)
-    text_location = "".join(*(str(x) for x in args))
+    text_location = "".join(*[str(x) for x in args])
     observation = owm.weather_at_place(text_location)
     w = observation.get_weather()
     humidity = w.get_humidity()
