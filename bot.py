@@ -1,8 +1,8 @@
 """
 Telegram weather bot
 """
-
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import Updater
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import logging
 import pyowm
 import os
@@ -24,7 +24,7 @@ def help(self, update, message):
     """Send a message when the command /help is issued."""
     bot.update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
 
-def error(self, update):
+def error(self, update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
@@ -50,7 +50,7 @@ def weather(self, update, message, args):
 def main():
     """Start the bot."""
 
-    updater = Updater(TOKEN)
+    updater = Updater(TOKEN, use_context=True)
     # Create the EventHandler and pass it your bot's token.
     #updater = Updater(TOKEN)
 
