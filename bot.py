@@ -16,19 +16,19 @@ logger = logging.getLogger(__name__)
 TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
 PORT = int(os.environ.get("PORT", 8443))
 
-def start(self, update, message):
+def start(update, context):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.')
 
-def help(self, update, message):
+def help(update, context):
     """Send a message when the command /help is issued."""
     bot.update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
 
-def error(self, update, context):
+def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def weather(self, update, message, args):
+def weather(update, context, args):
     """Define weather at certain location"""
     owm = pyowm.OWM('dd5185db8471b85647e7626571b85db8')
     text_location = "".join(str(x) for x in args)
@@ -62,7 +62,7 @@ def main():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("weather", weather, pass_args=True))
 
-    dp.add_handler(MessageHandler(Filters.text, weather))
+    #dp.add_handler(MessageHandler(Filters.text, weather))
 
     # log all errors
     dp.add_error_handler(error)
