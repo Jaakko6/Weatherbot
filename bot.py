@@ -13,6 +13,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
+OWM_KEY = "dd5185db8471b85647e7626571b85db8"
+URL_OWM = "http://api.openweathermap.org/data/2.5/weather?appid={}&units=metric&lang=fi".format(OWM_KEY)
 TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
 PORT = int(os.environ.get("PORT", 8443))
 
@@ -30,7 +32,7 @@ def error(update, context):
 
 def weather(update, context, args):
     """Define weather at certain location"""
-    owm = pyowm.OWM("dd5185db8471b85647e7626571b85db8")
+    owm = pyowm.OWM(URL_OWM)
     text_location = "".join((str(x) for x in args))
     observation = owm.weather_at_place(text_location)
     w = observation.get_weather()
