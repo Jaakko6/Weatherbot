@@ -43,9 +43,9 @@ def weather(update, context, args):
     text_temp = str(convert_temp)
     text_wind = str(convert_wind)
     text_humidity = str(convert_humidity)
-    update.message.reply_text("Lämpötila, celsius: {}".format(text_temp))
-    update.message.reply_text("Tuulen nopeus, m/s: {}".format(text_wind))
-    update.message.reply_text("Kosteus, %: {}".format(text_humidity))
+    update.message.reply_text("Lämpötila, celsius: {}".format(text_temp), "Tuulen nopeus, m/s: {}".format(text_wind), "Kosteus, %: {}".format(text_humidity))
+    #update.message.reply_text("Tuulen nopeus, m/s: {}".format(text_wind))
+    #update.message.reply_text("Kosteus, %: {}".format(text_humidity))
 
 def main():
     """Start the bot."""
