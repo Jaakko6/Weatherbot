@@ -18,13 +18,13 @@ PORT = int(os.environ.get("PORT", 8443))
 
 def start(self, update):
     """Send a message when the command /start is issued."""
-    bot.update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.')
+    update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.')
 
 def help(self, update):
     """Send a message when the command /help is issued."""
     bot.update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
 
-def error(self, update, context):
+def error(self, update):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
