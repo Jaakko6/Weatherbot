@@ -7,7 +7,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 import logging
 import pyowm
 import os
-import signal
+import sys
 
 
 # Enable logging
@@ -35,10 +35,10 @@ def error(update, context):
 
 
 
-def weather(update, context, *args):
+def weather(update, context, *argv):
     """Define weather at certain location"""
     owm = pyowm.OWM(URL_OWM)
-    text_location = "".join((str(x) for x in args))
+    text_location = "".join((str(x) for x in argv))
     observation = owm.weather_at_place(text_location)
     w = observation.get_weather()
     humidity = w.get_humidity()
@@ -79,7 +79,7 @@ def main():
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
                           url_path=TOKEN)
-    updater.bot.set_webhook(url=settings.WEBHOOK_URL)
+    #updater.bot.set_webhook(url=settings.WEBHOOK_URL)
     updater.bot.set_webhook("https://obscure-forest-19016.herokuapp.com/"  + TOKEN)
     updater.idle()
 
