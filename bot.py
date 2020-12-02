@@ -16,11 +16,11 @@ logger = logging.getLogger(__name__)
 TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
 PORT = int(os.environ.get("PORT", 8443))
 
-def start(self, update):
+def start(self, update, message):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.')
 
-def help(self, update):
+def help(self, update, message):
     """Send a message when the command /help is issued."""
     bot.update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
 
@@ -28,7 +28,7 @@ def error(self, update):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def weather(self, update, args):
+def weather(self, update, message, args):
     """Define weather at certain location"""
     owm = pyowm.OWM('dd5185db8471b85647e7626571b85db8')
     text_location = "".join(str(x) for x in args)
@@ -50,7 +50,7 @@ def weather(self, update, args):
 def main():
     """Start the bot."""
 
-    updater = Updater(TOKEN, use_context=True)
+    updater = Updater(TOKEN)
     # Create the EventHandler and pass it your bot's token.
     #updater = Updater(TOKEN)
 
