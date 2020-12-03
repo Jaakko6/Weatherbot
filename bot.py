@@ -7,7 +7,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 import logging
 import pyowm
 import os
-import sys
+
 
 
 # Enable logging
