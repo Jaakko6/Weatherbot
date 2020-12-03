@@ -6,7 +6,7 @@ For determine weather using OpenWeatherMap API.
 Wrapper telegram bot is python-telegram-bot (https://github.com/python-telegram-bot)
 """
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import logging
 import pyowm
 import os
