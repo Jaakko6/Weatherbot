@@ -12,7 +12,7 @@ import pyowm
 import os
 
 
-TOKEN = "1497777019:AAHKJN0mOAkE-z86ATlZ-V-9WvXSmzzQB_U"
+TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
 OWM_KEY = "5d58dc1c25402358025e67224f8a56b2"
 PORT = int(os.environ.get("PORT", 8443))
 
