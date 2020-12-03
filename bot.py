@@ -22,19 +22,19 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-def start(bot, update, context):
+def start(bot, update: Update, context: CallbackContext):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Hi! I can determine current weather at city.')
 
-def help(bot, update, context):
+def help(bot, update: Update, context: CallbackContext):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Just type, for example, /weather Moscow')
 
-def error(bot, update, error, context):
+def error(bot, update: Update, context: CallbackContext, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
 
-def weather(bot, update, args):
+def weather(bot, update: Update, context: CallbackContext, args):
     """Define weather at certain location"""
     owm = pyowm.OWM(OWM_KEY)
     text_location = "".join(str(x) for x in args)
