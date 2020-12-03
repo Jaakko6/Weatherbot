@@ -10,6 +10,11 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import pyowm
 
+
+TOKEN = "1497777019:AAHKJN0mOAkE-z86ATlZ-V-9WvXSmzzQB_U"
+OWM_KEY = "5d58dc1c25402358025e67224f8a56b2"
+PORT = int(os.environ.get("PORT", 8443))
+
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -30,7 +35,7 @@ def error(bot, update, error):
 
 def weather(bot, update, args):
     """Define weather at certain location"""
-    owm = pyowm.OWM("5d58dc1c25402358025e67224f8a56b2")
+    owm = pyowm.OWM(OWM_KEY)
     text_location = "".join(str(x) for x in args)
     observation = owm.weather_at_place(text_location)
     w = observation.get_weather()
@@ -50,7 +55,7 @@ def weather(bot, update, args):
 def main():
     """Start the bot."""
     # Create the EventHandler and pass it your bot's token.
-    updater = Updater("1497777019:AAHKJN0mOAkE-z86ATlZ-V-9WvXSmzzQB_U")
+    updater = Updater(TOKEN, use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -64,7 +69,11 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                          port=PORT,
+                          url_path=TOKEN)
+    updater.bot.set_webhook("https://obscure-forest-19016.herokuapp.com/" + TOKEN)
+    updater.idle()
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
