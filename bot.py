@@ -35,9 +35,9 @@ def error(update, context):
 
 
 
-def weather(update, context, args):
+def weather(update, args):
     """Define weather at certain location"""
-    owm = pyowm.OWM(URL_OWM)
+    owm = pyowm.OWM(OWM_KEY)
     text_location = "".join((str(x) for x in args))
     observation = owm.weather_at_place(text_location)
     w = observation.get_weather()
