@@ -9,6 +9,7 @@ Wrapper telegram bot is python-telegram-bot (https://github.com/python-telegram-
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import pyowm
+import os
 
 
 TOKEN = "1497777019:AAHKJN0mOAkE-z86ATlZ-V-9WvXSmzzQB_U"
@@ -78,8 +79,7 @@ def main():
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
-    updater.idle()
-
+   
 
 if __name__ == '__main__':
     main()
