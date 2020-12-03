@@ -30,7 +30,7 @@ def error(bot, update, error):
 
 def weather(bot, update, args):
     """Define weather at certain location"""
-    owm = pyowm.OWM('5d58dc1c25402358025e67224f8a56b2')
+    owm = pyowm.OWM("5d58dc1c25402358025e67224f8a56b2")
     text_location = "".join(str(x) for x in args)
     observation = owm.weather_at_place(text_location)
     w = observation.get_weather()
