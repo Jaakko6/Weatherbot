@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 OWM_KEY = "dd5185db8471b85647e7626571b85db8"
 URL_OWM = "http://api.openweathermap.org/data/2.5/weather?appid={}&units=metric&lang=fi".format(OWM_KEY)
 TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
-PORT = int(os.environ.get("PORT", 5000))
+PORT = int(os.environ.get("PORT", 8443))
 
 def start(update, context):
     """Send a message when the command /start is issued."""
