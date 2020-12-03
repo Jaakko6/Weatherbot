@@ -1,14 +1,14 @@
-"""
-Telegram weather bot
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+""" Telegram bot for determine current weather at certain city.
+For determine weather using OpenWeatherMap API.
+Wrapper telegram bot is python-telegram-bot (https://github.com/python-telegram-bot)
 """
 
-from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import pyowm
-import os
-
-
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -16,50 +16,41 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-OWM_KEY = "dd5185db8471b85647e7626571b85db8"
-URL_OWM = "http://api.openweathermap.org/data/2.5/weather?appid={}&units=metric&lang=fi".format(OWM_KEY)
-TOKEN = "1467684613:AAHWJ-ire79YU1yoweOMW8KOfjHsoqwAnjU"
-PORT = int(os.environ.get("PORT", 8443))
-
-def start(update, context):
+def start(bot, update):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Kirjoita: "/weather" ja kaupungin nimi.')
+    update.message.reply_text('Hi! I can determine current weather at city.')
 
-def help(update, context):
+def help(bot, update):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Kirjoita kaupungin nimi, esim. /weather Turku')
+    update.message.reply_text('Just type, for example, /weather Moscow')
 
-def error(update, context):
+def error(bot, update, error):
     """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, context.error)
+    logger.warning('Update "%s" caused error "%s"', update, error)
 
-
-
-def weather(update, args):
+def weather(bot, update, args):
     """Define weather at certain location"""
-    owm = pyowm.OWM(OWM_KEY)
-    text_location = "".join((str(x) for x in args))
+    owm = pyowm.OWM('5d58dc1c25402358025e67224f8a56b2')
+    text_location = "".join(str(x) for x in args)
     observation = owm.weather_at_place(text_location)
     w = observation.get_weather()
     humidity = w.get_humidity()
     wind = w.get_wind()
-    temp = w.get_temperature()
-    convert_temp = temp.get("celsius")
-    convert_wind = wind.get("speed")
-    convert_humidity = humidity.get("%")
+    temp = w.get_temperature('celsius')
+    convert_temp = temp.get('temp')
+    convert_wind = wind.get('speed')
+    convert_humidity = humidity
     text_temp = str(convert_temp)
     text_wind = str(convert_wind)
     text_humidity = str(convert_humidity)
-    update.message.reply_text("Lämpötila, celsius: {}".format(text_temp), "Tuulen nopeus, m/s: {}".format(text_wind), "Kosteus, %: {}".format(text_humidity))
-    #update.message.reply_text("Tuulen nopeus, m/s: {}".format(text_wind))
-    #update.message.reply_text("Kosteus, %: {}".format(text_humidity))
+    update.message.reply_text("Temperature, celsius: {}".format(text_temp))
+    update.message.reply_text("Wind speed, m/s: {}".format(text_wind))
+    update.message.reply_text("Humidity, %: {}".format(text_humidity))
 
 def main():
     """Start the bot."""
-
-    updater = Updater(TOKEN, use_context=True)
     # Create the EventHandler and pass it your bot's token.
-    #updater = Updater(TOKEN)
+    updater = Updater("1497777019:AAHKJN0mOAkE-z86ATlZ-V-9WvXSmzzQB_U")
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -69,18 +60,15 @@ def main():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("weather", weather, pass_args=True))
 
-    #dp.add_handler(MessageHandler(Filters.text, weather))
-
     # log all errors
     dp.add_error_handler(error)
 
     # Start the Bot
+    updater.start_polling()
 
-    updater.start_webhook(listen="0.0.0.0",
-                          port=PORT,
-                          url_path=TOKEN)
-    #updater.bot.set_webhook(url=settings.WEBHOOK_URL)
-    updater.bot.set_webhook("https://obscure-forest-19016.herokuapp.com/"  + TOKEN)
+    # Run the bot until you press Ctrl-C or the process receives SIGINT,
+    # SIGTERM or SIGABRT. This should be used most of the time, since
+    # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
 
