@@ -30,7 +30,7 @@ def help(bot, update: Update, context: CallbackContext):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Just type, for example, /weather Moscow')
 
-def error(bot, update: Update, context: CallbackContext, error):
+def error(bot, update: Update):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
 
