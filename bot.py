@@ -22,15 +22,15 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-def start(bot, update):
+def start(bot, update, context):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Hi! I can determine current weather at city.')
 
-def help(bot, update):
+def help(bot, update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Just type, for example, /weather Moscow')
 
-def error(bot, update, error):
+def error(bot, update, error, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
 
